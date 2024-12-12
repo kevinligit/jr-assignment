@@ -15,6 +15,12 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-southeast-2
+      - name: Delete existing stack if in ROLLBACK_COMPLETE
+        run: |
+          if aws cloudformation describe-stacks --stack-name glue-table-stack --region ap-southeast-2 2>&1 | grep -q 'ROLLBACK_COMPLETE'; then
+            aws cloudformation delete-stack --stack-name glue-table-stack --region ap-southeast-2
+            aws cloudformation wait stack-delete-complete --stack-name glue-table-stack --region ap-southeast-2
+          fi
       - name: Validate CloudFormation template
         run: |
           aws cloudformation validate-template --template-body file://cfm.yaml
