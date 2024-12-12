@@ -21,3 +21,7 @@ jobs:
       - name: Deploy CloudFormation stack
         run: |
           aws cloudformation deploy --template-file cfm.yaml --stack-name glue-table-stack --capabilities CAPABILITY_NAMED_IAM --region ap-southeast-2 --no-fail-on-empty-changeset
+      - name: Check stack events on failure
+        if: failure()
+        run: |
+          aws cloudformation describe-stack-events --stack-name glue-table-stack --region ap-southeast-2
