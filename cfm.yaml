@@ -15,7 +15,7 @@ Resources:
         Name: aisles
         TableType: EXTERNAL_TABLE
         Parameters:
-          classification: parquet
+          classification: csv
         StorageDescriptor:
           Columns:
             - Name: aisle_id
@@ -23,10 +23,13 @@ Resources:
             - Name: aisle
               Type: string
           Location: s3://jr-assignment-kevinli/data
-          InputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat
-          OutputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
           SerdeInfo:
-            SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
+            SerializationLibrary: org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+            Parameters:
+              'field.delim': ','
+              'serialization.format': ','
   GlueProductsTable:
     Type: AWS::Glue::Table
     DependsOn: GlueDatabase
@@ -37,7 +40,7 @@ Resources:
         Name: products
         TableType: EXTERNAL_TABLE
         Parameters:
-          classification: parquet
+          classification: csv
         StorageDescriptor:
           Columns:
             - Name: product_id
@@ -49,10 +52,13 @@ Resources:
             - Name: department_id
               Type: int
           Location: s3://jr-assignment-kevinli/data
-          InputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat
-          OutputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
           SerdeInfo:
-            SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
+            SerializationLibrary: org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+            Parameters:
+              'field.delim': ','
+              'serialization.format': ','
   GlueOrdersTable:
     Type: AWS::Glue::Table
     DependsOn: GlueDatabase
@@ -63,7 +69,7 @@ Resources:
         Name: orders
         TableType: EXTERNAL_TABLE
         Parameters:
-          classification: parquet
+          classification: csv
         StorageDescriptor:
           Columns:
             - Name: order_id
@@ -81,10 +87,13 @@ Resources:
             - Name: days_since_prior_order
               Type: double
           Location: s3://jr-assignment-kevinli/data
-          InputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat
-          OutputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
           SerdeInfo:
-            SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
+            SerializationLibrary: org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+            Parameters:
+              'field.delim': ','
+              'serialization.format': ','
   GlueOrderProductsTable:
     Type: AWS::Glue::Table
     DependsOn: GlueDatabase
@@ -95,7 +104,7 @@ Resources:
         Name: order_products
         TableType: EXTERNAL_TABLE
         Parameters:
-          classification: parquet
+          classification: csv
         StorageDescriptor:
           Columns:
             - Name: order_id
@@ -107,10 +116,13 @@ Resources:
             - Name: reordered
               Type: int
           Location: s3://jr-assignment-kevinli/data
-          InputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat
-          OutputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
           SerdeInfo:
-            SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
+            SerializationLibrary: org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+            Parameters:
+              'field.delim': ','
+              'serialization.format': ','
   GlueDepartmentsTable:
     Type: AWS::Glue::Table
     DependsOn: GlueDatabase
@@ -121,7 +133,7 @@ Resources:
         Name: departments
         TableType: EXTERNAL_TABLE
         Parameters:
-          classification: parquet
+          classification: csv
         StorageDescriptor:
           Columns:
             - Name: department_id
@@ -129,7 +141,10 @@ Resources:
             - Name: department
               Type: string
           Location: s3://jr-assignment-kevinli/data
-          InputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat
-          OutputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
           SerdeInfo:
-            SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
+            SerializationLibrary: org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+            Parameters:
+              'field.delim': ','
+              'serialization.format': ','
