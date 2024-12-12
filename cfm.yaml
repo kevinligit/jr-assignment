@@ -7,6 +7,7 @@ Resources:
         Name: jr_assignment_db
   GlueAislesTable:
     Type: AWS::Glue::Table
+    DependsOn: GlueDatabase
     Properties:
       CatalogId: !Ref AWS::AccountId
       DatabaseName: jr_assignment_db
@@ -28,6 +29,7 @@ Resources:
             SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
   GlueProductsTable:
     Type: AWS::Glue::Table
+    DependsOn: GlueDatabase
     Properties:
       CatalogId: !Ref AWS::AccountId
       DatabaseName: jr_assignment_db
@@ -53,6 +55,7 @@ Resources:
             SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
   GlueOrdersTable:
     Type: AWS::Glue::Table
+    DependsOn: GlueDatabase
     Properties:
       CatalogId: !Ref AWS::AccountId
       DatabaseName: jr_assignment_db
@@ -84,6 +87,7 @@ Resources:
             SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
   GlueOrderProductsTable:
     Type: AWS::Glue::Table
+    DependsOn: GlueDatabase
     Properties:
       CatalogId: !Ref AWS::AccountId
       DatabaseName: jr_assignment_db
@@ -109,6 +113,7 @@ Resources:
             SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
   GlueDepartmentsTable:
     Type: AWS::Glue::Table
+    DependsOn: GlueDatabase
     Properties:
       CatalogId: !Ref AWS::AccountId
       DatabaseName: jr_assignment_db
