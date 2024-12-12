@@ -1,0 +1,130 @@
+Resources:
+  GlueDatabase:
+    Type: AWS::Glue::Database
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseInput:
+        Name: jr_assignment_db
+  GlueAislesTable:
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: jr_assignment_db
+      TableInput:
+        Name: aisles
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: parquet
+        StorageDescriptor:
+          Columns:
+            - Name: aisle_id
+              Type: int
+            - Name: aisle
+              Type: string
+          Location: s3://jr-assignment-kevinli/data
+          InputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat
+          OutputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat
+          SerdeInfo:
+            SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
+  GlueProductsTable:
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: jr_assignment_db
+      TableInput:
+        Name: products
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: parquet
+        StorageDescriptor:
+          Columns:
+            - Name: product_id
+              Type: int
+            - Name: product_name
+              Type: string
+            - Name: aisle_id
+              Type: int
+            - Name: department_id
+              Type: int
+          Location: s3://jr-assignment-kevinli/data
+          InputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat
+          OutputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat
+          SerdeInfo:
+            SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
+  GlueOrdersTable:
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: jr_assignment_db
+      TableInput:
+        Name: orders
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: parquet
+        StorageDescriptor:
+          Columns:
+            - Name: order_id
+              Type: int
+            - Name: user_id
+              Type: int
+            - Name: eval_set
+              Type: string
+            - Name: order_number
+              Type: int
+            - Name: order_dow
+              Type: int
+            - Name: order_hour_of_day
+              Type: int
+            - Name: days_since_prior_order
+              Type: double
+          Location: s3://jr-assignment-kevinli/data
+          InputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat
+          OutputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat
+          SerdeInfo:
+            SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
+  GlueOrderProductsTable:
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: jr_assignment_db
+      TableInput:
+        Name: order_products
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: parquet
+        StorageDescriptor:
+          Columns:
+            - Name: order_id
+              Type: int
+            - Name: product_id
+              Type: int
+            - Name: add_to_cart_order
+              Type: int
+            - Name: reordered
+              Type: int
+          Location: s3://jr-assignment-kevinli/data
+          InputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat
+          OutputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat
+          SerdeInfo:
+            SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
+  GlueDepartmentsTable:
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: jr_assignment_db
+      TableInput:
+        Name: departments
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: parquet
+        StorageDescriptor:
+          Columns:
+            - Name: department_id
+              Type: int
+            - Name: department
+              Type: string
+          Location: s3://jr-assignment-kevinli/data
+          InputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat
+          OutputFormat: org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat
+          SerdeInfo:
+            SerializationLibrary: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe
